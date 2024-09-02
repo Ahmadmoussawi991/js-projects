@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="message"></div>
+    <div class="login">
+      <h1>Hospital management system</h1>
+      <h2>Login form</h2>
+      <form id="loginForm">
+        <label for="username"> Username: </label
+        ><input
+          type="text"
+          id="username"
+          placeholder="Enter your Username..."
+        />
+        <label for="password"> Password: </label
+        ><input
+          type="password"
+          id="password"
+          placeholder="Enter your password..."
+        />
+        <input id="submit" type="submit" value="Login" />
+      </form>
+    </div>
+    <form id="formreg" class="displaynone">
+      <label for="name">doctor name</label>
+      <input id="name" type="text" placeholder="Enter doctor name.." required />
+      <label for="type">specialization</label
+      ><select name="type" id="type" required>
+        <option value="cardiology">cardiology</option>
+        <option value="dermatology">dermatology</option>
+        <option value="family">family</option>
+        <option value="surgery">surgery</option>
+        <option value="neurology">neurology</option>
+      </select>
+      <label for="day">Availability:</label>
+      <select name="day" id="day" required>
+        <option value="Monday">Monday</option>
+        <option value="Tuesday">Tuesday</option>
+        <option value="Wednesday">Wednesday</option>
+        <option value="Thursday">Thursday</option>
+        <option value="Friday">Friday</option>
+      </select>
+      <label>Availability:</label>
+  <label>
+    <input type="checkbox" name="option" value="monday"> Monday
+  </label><br>
+  <label>
+    <input type="checkbox" name="option" value="wednesday"> Wednesday
+  </label><br>
+  <label>
+    <input type="checkbox" name="option" value="friday"> Friday
+  </label><br>
+  <input type="radio" name="check" value="hello1"> Option 1
+<input type="radio"   name="check" value="hello2"> Option 2
+<input type="radio"   name="check" value="hello3"> Option 3
+
+<input type="text" id="src">
+      <button id="reg">register</button>
+    </form>
+
+    <div class="displaynone" id="filter">
+      <label for="statusFilter">Filter by Status:</label>
+      <select id="statusFilter" onchange="filterDoctors()">
+        <option value="all">All</option>
+        <option value="cardiology">cardiology</option>
+        <option value="dermatology">dermatology</option>
+        <option value="family">family</option>
+        <option value="surgery">surgery</option>
+        <option value="neurology">neurology</option>
+      </select>
+    </div>
+    <table id="table" class="displaynone">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>specialization</th>
+          <th>available</th>
+          <th>select</th>
+          <th>delete</th>
+          <th>img</th>
+        </tr>
+      </thead>
+      <tbody id="bodytable"></tbody>
+    </table>
+    <input type="text" id="search" onkeyup="search()" placeholder="Search.." class="displaynone"><br>
+    <button id="rev" class="displaynone">revert</button>
+    <script src="index.js"></script>
+  </body>
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="crud.css">
+</head>
+<body>
+    <div class="container">
+    <header><h2>crud application</h2></header>
+    <div id="message"></div>
+    <div class="content">
+        <div>
+        <label for="firstname">First name</label>
+        <input id="firstname" type="text" placeholder="Enter first name">
+    </div>
+    <div>
+        <label for="lastname">Last name</label>
+        <input id="lastname" type="text" placeholder="Enter last name">
+    </div>
+    <div>
+        <label for="no">Roll No</label>
+        <input id="no" type="number" placeholder="Roll no">
+    </div>
+        <button id="btn">Create</button>
+    <div>
+    
+        <label for="search">Search</label>
+        <input onkeyup="searchdata(this.value)" id="search" type="text" placeholder="search">
+    </div>
+    <div class="search">
+        <button id="searchbyname" onclick="search(this.id)">Search By Name</button>
+<button id="searchbylast" onclick="search(this.id)">Search By Last Name</button>
+    </div>
+    <div id="deleteall"></div>
+    <table>
+        <thead>
+        <tr>
+            <th>
+                id
+            </th>
+            <th>
+                First name
+            </th>
+            <th>
+                Last name
+            </th>
+            <th> 
+                 Roll No
+            </th>
+            <th>update</th>
+                <th>delate</th>
+            </tr>
+        </thead>
+            <tbody id="tbody">
+              
+            </tbody>
+    </table>
+    <img id="scroll" src="scrooll.png" alt="">
+    </div>
+</body>
+<script>
+let f=document.getElementById('firstname')
+let l=document.getElementById('lastname')
+let n=document.getElementById('no')
+let btn=document.getElementById('btn')
+let message=document.getElementById('message')
+let data;
+let mood='create'
+let tmp
+if(localStorage.product1!=null){
+    data=JSON.parse(localStorage.product1)
+}
+else{
+    data=[]
+}
+showdata()
+btn.onclick=function(){
+    
+    let newcustomer={
+        name:f.value.toLowerCase(),
+        last:l.value.toLowerCase(),
+        rollno:n.value
+    }
+    if(f.value!=''&&l.value!=''&& n.value!=''){
+    if(mood==='create'){
+        data.push(newcustomer)
+        cleardata()
+        message.innerHTML='!Customer has ben created'
+color()
+    }
+    else{
+        data[tmp]=newcustomer;
+        btn.innerHTML='Create'
+        mood='create'
+        message.innerHTML='!Customer has ben updated'
+color()
+        
+        
+cleardata()
+    }
+}
+else {
+    if(mood==='create'){
+        colorr()
+    }
+    else{
+colorr()
+    }
+}
+
+
+    localStorage.setItem('product1',JSON.stringify(data))
+    
+    showdata()
+}
+function cleardata(){
+    f.value=''
+    n.value=''
+    l.value=''
+}
+function showdata(){
+    let table=''
+    for(let i=0 ;i<data.length;i++){
+        table+=` <tr>
+            <td>${i+1}</td>
+            <td>${data[i].name}</td>
+            <td>${data[i].last}</td>
+            <td>${data[i].rollno}</td>
+            <td><button onclick="updatedata(${i})" id="update">update</button></td>
+            <td><button onclick="deleteproduct(${i})" id="delete">delete</button></td>
+            </tr>`
+    }
+    document.getElementById('tbody').innerHTML=table
+    let btndelete=document.getElementById('deleteall')
+    if(data.length>0){
+        btndelete.innerHTML=`
+        <button onclick="deleteAll()">delete all (${data.length})</button>
+        `
+    }
+    else{
+        btndelete.innerHTML=''
+    }
+
+}
+function deleteAll(){
+    localStorage.clear()
+    data.splice(0)
+    showdata()
+    message.innerHTML='!All customer has ben deleted'
+color()
+
+}
+function deleteproduct(i){
+data.splice(i,1)
+localStorage.product1=JSON.stringify(data)
+showdata()
+message.innerHTML=`${data[i].name}has ben deleted`
+color()
+
+}
+function updatedata(i){
+    f.value=data[i].name
+    l.value=data[i].last
+    n.value=data[i].rollno
+    btn.innerHTML='Update'
+    mood='update'
+    scroll({
+    top:0,
+    behavior:"smooth"
+})
+message.innerHTML='!Update the information of customer'
+message.style.background='rgb(105, 105, 241)'
+    message.style.display='block'
+
+tmp=i
+}
+function color(){
+    message.style.background='rgb(105, 105, 241)'
+    message.style.display='block'
+    setTimeout(function(){message.style.display='none'},3000)
+}
+function colorr(){
+    message.style.display='block'
+    message.style.background='red'
+message.innerHTML='!please enetr all the feilds!'
+setTimeout(function(){message.style.display='none'},3000)
+}
+let searchmood='name'
+function search(id){
+   let search=document.getElementById('search')
+   if(id=='searchbyname'){
+    searchmood='name'
+    search.placeholder='Search by name'
+   }
+   else{
+    searchmood='lastname'
+    search.placeholder='Search by last'
+   }
+   search.focus()
+search.value='';
+
+}
+function searchdata(value){
+    let table=''
+    if(searchmood=='name'){
+        for(let i=0 ;i<data.length;i++){
+            if(data[i].name.includes(value.toLowerCase())){
+              table+=` <tr>
+            <td>${i+1}</td>
+            <td>${data[i].name}</td>
+            <td>${data[i].last}</td>
+            <td>${data[i].rollno}</td>
+         
+            <td><button onclick="updatedata(${i})" id="update">update</button></td>
+            <td><button onclick="deleteproduct(${i})" id="delete">delete</button></td>
+            </tr>
+        `
+            }
+        }
+    }
+    else{
+        for (let i=0 ; i<data.length ;i++){
+            if(data[i].last.includes(value.toLowerCase())){
+              table+=` <tr>
+            <td>${i+1}</td>
+            <td>${data[i].name}</td>
+            <td>${data[i].last}</td>
+            <td>${data[i].rollno}</td>
+            <td><button onclick="updatedata(${i})" id="update">update</button></td>
+            <td><button onclick="deleteproduct(${i})" id="delete">delete</button></td>
+            </tr>
+        `
+            }
+        }
+    }
+    document.getElementById('tbody').innerHTML=table
+}
+let scroll=document.getElementById('scroll')
+window.onscroll = function(){
+    if(scrollY>200){
+        scroll.style.display='block'
+    }
+    else{
+        scroll.style.display='none'
+    }
+}
+scroll.onclick=function(){
+    window.scroll({
+        top:0,
+        left:0,
+        behavior:"smooth"
+    })
+}
+</script>
+</html>

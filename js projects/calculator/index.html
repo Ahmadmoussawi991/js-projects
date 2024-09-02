@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+       <div class="head">
+        <span>calculator</span>
+       </div>
+       <div class="outout">
+        <input type="text" id="result" placeholder="0">
+       </div>
+       <div class="body">
+        <button onclick="back()" id="del">DEL</button>
+        <button onclick="clearall()" id="c">C</button>
+        <button onclick="getnb('0')" id="btn0">0</button>
+        <button onclick="getnb('00')" id="btn0">00</button>
+        <button onclick="getnb('000')" id="btn0">000</button>
+        <button onclick="getnb('1')" id="btn1">1</button>
+        <button onclick="getnb('2')" id="btn2">2</button>
+        <button onclick="getnb('3')" id="btn3">3</button>
+        <button onclick="getnb('4')" id="btn4">4</button>
+        <button onclick="getnb('5')" id="btn5">5</button>
+        <button onclick="getnb('6')" id="btn6">6</button>
+        <button onclick="getnb('7')" id="btn7">7</button>
+        <button onclick="getnb('8')" id="btn8">8</button>
+        <button onclick="getnb('9')" id="btn9">9</button>
+        <button onclick="getnb('+')" id="btn10">+</button>
+        <button onclick="getnb('-')" id="btn11">-</button>
+        <button onclick="getnb('*')" id="btn12">*</button>
+        <button onclick="getnb('(')" id="btn0">(</button>
+        <button onclick="getnb(')')" id="btn0">)</button>
+        <button onclick="getnb('()')" id="btn0">()</button>
+        <button onclick="getresult()" id="btn16">=</button>
+
+       </div>
+     
+    </div>
+</body>
+<script>
+    
+    let text=document.getElementById('result')
+function getnb(num){
+text.value+=num
+}
+function clearall(){
+    text.value=''
+}
+function back(){
+    text.value=text.value.substring(0,text.value.length-1)
+}
+function getresult(){
+
+    let result;
+    try{
+        result=eval(`${text.value}`)
+    }
+    catch{
+        text.value='Error'
+    }
+    text.value=result
+    
+}
+</script>
+</html>

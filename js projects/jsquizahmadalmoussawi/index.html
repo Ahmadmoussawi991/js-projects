@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+   
+</head>
+<style>
+    body{
+        width:80%;
+        margin:auto
+    }
+    .login h1{
+        text-align: center;
+    }
+   
+    form{
+        display: flex;
+        flex-direction: column;
+        width:100%;
+        margin:auto
+    }
+    label{
+        margin: 0.5em 0;
+        font-size: 1.5em;
+        font-weight: bold;
+        font-style: italic;
+    }
+    #reg,#submit{
+        width:40%;
+        background-color: green;
+        color: white;
+        border: none;
+        border-radius: 1em;
+        padding: 1% 2%;
+        cursor: pointer;
+        font-weight: bold;
+        margin: 1em auto;
+    }
+    table{
+        
+        width: 100%;
+        border-collapse:collapse;
+        margin: 4em auto;
+
+       
+    }
+    th, td {
+        border: 1px solid black;
+        padding: 8px; 
+        text-align: left; 
+       
+    }
+
+    th {
+        
+        background-color: #4CAF50; 
+        color: white; 
+    }
+
+  
+
+    #message{
+        padding:2em 4em ;
+        width:60%;
+        color: white;
+        cursor: pointer;
+        font-weight: bold;
+        margin: 1em auto;
+        display: none;
+        
+    }
+    .displaynone{
+        display: none;
+    }
+    .select{
+        background-color: green;
+    }
+    
+</style>
+<body>
+    <form >
+       <label for="name">name</label> <input  id="name" type="text" required>
+       <label for="type">blood type</label><select name="type" id="type"  required>
+        <option value="o">O</option>
+        <option value="b">B</option>
+        <option value="a">A</option>
+        <option value="ab">AB</option>
+       </select>
+       <label for="contact">contact number</label><input id="contact" type="number" required>
+       <button id="reg">register</button>
+    </form>
+    <div id="message"></div>
+    <div class="login">
+    <h1>Login form</h1>
+    <form id="loginForm">
+       <label for="username"> Username: </label><input type="text" id="username" />
+        <label for="password"> Password: </label><input type="password" id="password" />
+        <input id="submit" type="submit" value="Login" />
+      </form>
+    </div>
+    <label for="statusFilter">Filter by Status:</label>
+    <select id="statusFilter" onchange="filterTasks()">
+        <option value="all">All</option>
+        <option value="o">O</option>
+        <option value="b">B</option>
+        <option value="a">A</option>
+        <option value="ab">AB</option>
+    </select>
+    <table id="table" class="displaynone">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Contact Number</th>
+            <th>select</th>
+            <th>delete</th>
+        </tr>
+        </thead>
+        <tbody id="bodytable"></tbody>
+    </table>
+    <script src="index.js"></script>
+</body>
+</html>

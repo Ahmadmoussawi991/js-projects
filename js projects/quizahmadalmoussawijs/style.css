@@ -1,0 +1,95 @@
+body {
+  width: 80%;
+  margin: auto;
+  background-color: #eee;
+}
+#formreg {
+  width: 95%;
+  margin: auto;
+}
+.login,
+#formreg {
+  box-shadow: 1px -1px 5px black, -1px 1px 5px black;
+  padding: 2em;
+  background-color: #ffffff;
+  margin: 2em 0;
+  border-radius: 2em;
+}
+.login h1,
+.login h2 {
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: auto;
+}
+label {
+  margin: 1em 0;
+  font-size: 1.5em;
+  font-weight: bold;
+  font-style: italic;
+}
+#reg,
+#submit {
+  width: 40%;
+  background-color: green;
+  color: white;
+  border: none;
+  border-radius: 1em;
+  padding: 1% 2%;
+  cursor: pointer;
+  font-weight: bold;
+  margin: 2em auto;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 4em auto;
+}
+th,
+td {
+  border: 1px solid black;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #4caf50;
+  color: white;
+}
+
+#message {
+  padding: 2em 4em;
+  text-align: center;
+  width: 60%;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  margin: 2em auto;
+  display: none;
+}
+.displaynone {
+  display: none;
+}
+.select {
+  background-color: green;
+}
+#delete {
+  background-color: red;
+}
+#on {
+  background: blue;
+}
+#on,
+#delete {
+  border: none;
+  color: white;
+  padding: 0.5em 1em;
+  border-radius: 1em;
+}
+input {
+  padding: 0.5em;
+}

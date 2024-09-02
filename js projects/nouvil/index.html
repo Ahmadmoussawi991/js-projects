@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+   <div class="container">
+    <header>
+        <h2><a href="#">NOUVIL</a></h2>
+        <ul>
+            <li><a href="#" class="active">Home</a></li>
+            <li><a href="#">Product</a></li>
+            <li><a href="#">Shop</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+        </ul>
+    </header>
+    <section class="main">
+        <img src="stars.jpg" alt="" id="stars">
+        <h2 class="nouvil">NOUVIL</h2>
+        <img src="moon.jpg" alt=""id="moon">
+        <img src="mountains.jpg" alt=""id="mon">
+        <img src="mountains1.jpg" alt=""id="mon1">
+        <img src="river.jpg" alt=""id="river">
+        <img src="boat.jpg" alt=""id=boat>
+        <img src="mountain2.jpg" alt=""id=mon2>
+    </section>
+<div class="content">
+    <h2>Lorem ipsum dolor sit amet.</h2>
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aut, exercitationem voluptas aliquid placeat perferendis perspiciatis libero in repellendus praesentium aperiam magni saepe iste et possimus distinctio esse doloribus! Odit ut voluptates vitae sed architecto magni quos suscipit expedita? Beatae minima iusto accusantium, ducimus odit neque nostrum autem voluptates aliquid nihil magni illum iure animi! Tenetur veritatis quibusdam voluptates asperiores tempora dolorum, optio suscipit perferendis quod, culpa consequatur laboriosam in libero, omnis illo fugit illum qui! Ab voluptate nam nostrum ut similique explicabo. Excepturi quae doloribus ut alias fuga ducimus atque. Esse tempore velit deleniti ullam unde laboriosam eos officia vitae!</p><br>
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aut, exercitationem voluptas aliquid placeat perferendis perspiciatis libero in repellendus praesentium aperiam magni saepe iste et possimus distinctio esse doloribus! Odit ut voluptates vitae sed architecto magni quos suscipit expedita? Beatae minima iusto accusantium, ducimus odit neque nostrum autem voluptates aliquid nihil magni illum iure animi! Tenetur veritatis quibusdam voluptates asperiores tempora dolorum, optio suscipit perferendis quod, culpa consequatur laboriosam in libero, omnis illo fugit illum qui! Ab voluptate nam nostrum ut similique explicabo. Excepturi quae doloribus ut alias fuga ducimus atque. Esse tempore velit deleniti ullam unde laboriosam eos officia vitae!</p><br>
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aut, exercitationem voluptas aliquid placeat perferendis perspiciatis libero in repellendus praesentium aperiam magni saepe iste et possimus distinctio esse doloribus! Odit ut voluptates vitae sed architecto magni quos suscipit expedita? Beatae minima iusto accusantium, ducimus odit neque nostrum autem voluptates aliquid nihil magni illum iure animi! Tenetur veritatis quibusdam voluptates asperiores tempora dolorum, optio suscipit perferendis quod, culpa consequatur laboriosam in libero, omnis illo fugit illum qui! Ab voluptate nam nostrum ut similique explicabo. Excepturi quae doloribus ut alias fuga ducimus atque. Esse tempore velit deleniti ullam unde laboriosam eos officia vitae!</p><br>
+</div>
+   </div> 
+</body>
+<script>
+    let stars=document.getElementById('stars')
+    let moon=document.getElementById('moon')
+    let mon=document.getElementById('mon')
+    let mon1=document.getElementById('mon1')
+    let river=document.getElementById('river')
+    let boat=document.getElementById('boat')
+    let nouvil=document.querySelector('.nouvil')
+    window.onscroll=function(){
+        let value=scrollY
+        stars.style.left=value+'px'
+        moon.style.top=value*3+'px'
+        mon.style.top=value*2+'px'
+        mon1.style.top=value*1.5+'px'
+        river.style.top=value +'px'
+        boat.style.top=value +'px'
+        boat.style.left=value*3 +'px'
+        nouvil.style.fontSize=value +'px'
+        if(scrollY>=67){
+            nouvil.style.fontSize=67 +'px'
+            nouvil.style.position='fixed'
+        }
+        if(scrollY>=470){
+            nouvil.style.display='none'
+        }
+        else{
+            nouvil.style.display='block'
+        }
+        if(scrollY>=200){
+            document.querySelector('.main').style.background='linear-gradient(#376281,#10001f)'
+        }
+else{
+    document.querySelector('.main').style.background='linear-gradient(#200016,#10001f)'
+}
+    }
+</script>
+</html>

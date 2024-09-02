@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+   
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    thead {
+        background-color: #f2f2f2; 
+    }
+
+    th, td {
+        padding: 8px; 
+        text-align: left; 
+        border-bottom: 1px solid #ddd; 
+    }
+
+    th {
+        background-color: #4CAF50; 
+        color: white; 
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2; 
+    }
+
+    tr:hover {
+        background-color: #ddd; 
+    }
+</style>
+<body>
+    <label for="statusFilter">Filter by Status:</label>
+    <select id="statusFilter" onchange="filterTasks()">
+        <option value="all">All</option>
+        <option value="active">Active</option>
+        <option value="inprogress">In Progress</option>
+        <option value="done">Done</option>
+    </select>
+    <input type="text" id="searchInput" onkeyup="searchTasks()" placeholder="Search by Title">
+    <form id="submittask">
+       <label for="title">name</label> <input type="text" id="title" required><br><br>
+       <label for="desc">description</label><input type="text" id="desc" required><br><br>
+       <label for="due">due date</label><input type="date" id="due" required>
+       <label for="status"><select name="status" id="status">
+        <option value="active">active</option>
+        <option value="inprogress">inprogress</option>
+        <option value="done">Done</option>
+       </select></label>
+       <button type="submit">Submit</button> 
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Due Date</th>
+                <th>Status</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody id="tasksTableBody">
+          
+        </tbody>
+    </table>
+    
+    <script src="task.js"></script>
+</body>
+</html>

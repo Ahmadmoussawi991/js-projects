@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Blog Platform</title>
+    <style>
+   body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;  
+            padding: 20px;     
+        }
+        .container {
+            width: 90%;
+            max-width: 600px;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: auto; 
+        }
+        form, .post, .alert {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input, select, textarea, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #5C85D6;
+            color: white;
+            border: none;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #3a57e8;
+        }
+        .hidden {
+            display: none;
+        }
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            .container {
+                width: 100%;
+                margin: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div id="loginForm">
+        <h2>Login</h2>
+        <input type="text" id="username" placeholder="Enter Username">
+        <input type="password" id="password" placeholder="Enter Password">
+        <button onclick="login()">Login</button>
+        <p id="loginError" class="hidden">Incorrect credentials, please try again.</p>
+    </div>
+
+
+    <div id="blogForm" class="hidden">
+        <h2>Create a New Blog Post</h2>
+        <input type="text" id="title" placeholder="Title">
+        <textarea id="description" placeholder="Description"></textarea>
+        <input type="text" id="category" placeholder="Category">
+        <input type="text" id="imageLink" placeholder="Image Link (URL)">
+        <input type="text" id="author" placeholder="Author">
+        <button onclick="addPost()">Add Post</button>
+        <p id="blogCount"></p>
+    </div>
+
+    <div id="posts" class="hidden">
+        <h3>Blog Posts</h3>
+        <select id="filterCategory" onchange="filterPosts()">
+            <option value="all">All Categories</option>
+            <option value="Technology">Technology</option>
+            <option value="Education">Education</option>
+            <option value="Travel">Travel</option>
+        </select>
+        <input type="text" id="searchTitle" placeholder="Search by title...">
+        <button onclick="searchByTitle()">Search</button>
+        <button onclick="reversePosts()">Reverse Posts</button>
+
+        <div id="blogPosts"></div>
+
+    </div>
+
+</div>
+
+
+<script>
+    let posts = [
+        {
+            title: "Exploring the Future of Technology",
+            description: "This post delves into upcoming trends in the technology sector, including advancements in AI and machine learning.",
+            category: "Technology",
+            link: "images/image1.jpg",
+            author: "Jane Doe"
+        },
+        {
+            title: "The Importance of Education",
+            description: "A detailed discussion on why education is critical and how it shapes our society.",
+            category: "Education",
+            link: "images/image2.jpg",
+            author: "John Smith"
+        }
+    ];
+
+
+
+    function login() {
+        const username = document.getElementById('username').value.toLowerCase();
+        const password = document.getElementById('password').value;
+        if (username === 'a' && password === 'a') {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('blogForm').style.display = 'block';
+            document.getElementById('posts').style.display = 'block';
+            document.getElementById('loginError').style.display = 'none';
+            displayPosts(); 
+            updateBlogCount(); 
+        } else {
+            document.getElementById('loginError').style.display = 'block';
+        }
+    }
+
+
+
+    function addPost() {
+        const title = document.getElementById('title').value;
+        const description = document.getElementById('description').value;
+        const category = document.getElementById('category').value;
+        const link = document.getElementById('imageLink').value;
+        const author = document.getElementById('author').value;
+
+        if (!title || !description || !category || !link || !author) {
+            alert("All fields are required.");
+            return;
+        }
+
+        const post = { title, description, category, link, author };
+        posts.push(post);
+        displayPosts();
+        clearForm();
+        updateBlogCount();
+
+        setTimeout(function() {
+            alert("New blog post added successfully!");
+        }, 3000);
+    }
+
+
+
+    function displayPosts() {
+    const blogPosts = document.getElementById('blogPosts');
+    blogPosts.innerHTML = ''; 
+
+    posts.forEach(post => {
+        const postHtml = `<div class="post">
+            <h4>${post.title}</h4>
+            <p>${post.description}</p>
+            <img src="${post.link}" alt="${post.title}">
+            <p>Category: ${post.category}</p>
+            <p>Author: ${post.author}</p>
+        </div>`;
+
+        blogPosts.innerHTML += postHtml;
+    });
+
+}
+
+    function clearForm() {
+        document.getElementById('title').value = '';
+        document.getElementById('description').value = '';
+        document.getElementById('category').value = '';
+        document.getElementById('imageLink').value = '';
+        document.getElementById('author').value = '';
+    }
+
+    function updateBlogCount() {
+        document.getElementById('blogCount').innerText = `Total Blogs: ${posts.length}`
+    }
+
+
+
+    function filterPosts() {
+    const selectedCategory = document.getElementById('filterCategory').value;
+    const blogPosts = document.getElementById('blogPosts');
+    blogPosts.innerHTML = ''; 
+
+    const filteredPosts = posts.filter(post => selectedCategory === 'all' || post.category === selectedCategory);
+
+    if (filteredPosts.length > 0) {
+        filteredPosts.forEach(post => {
+            const postHtml = `<div class="post">
+                <h4>${post.title}</h4>
+                <p>${post.description}</p>
+                <img src="${post.link}" alt="${post.title}" style="width:100%;max-width:300px;">
+                <p>Category: ${post.category}</p>
+                <p>Author: ${post.author}</p>
+            </div>`;
+            blogPosts.innerHTML += postHtml;
+        });
+    } else {
+        blogPosts.innerHTML = `<p>No posts found in this category.</p>`
+    }
+}
+
+
+
+    function searchByTitle() {
+    const titleToFind = document.getElementById('searchTitle').value.trim().toLowerCase();
+    const blogPosts = document.getElementById('blogPosts');
+    blogPosts.innerHTML = ''; 
+
+    const filteredPosts = posts.filter(post => post.title.toLowerCase().includes(titleToFind));
+    if (filteredPosts.length > 0) {
+        filteredPosts.forEach(post => {
+            const postHtml = `<div class="post">
+                <h4>${post.title}</h4>
+                <p>${post.description}</p>
+                <img src="${post.link}" alt="${post.title}" style="width:100%;max-width:300px;">
+                <p>Category: ${post.category}</p>
+                <p>Author: ${post.author}</p>
+            </div>`;
+            blogPosts.innerHTML += postHtml;
+        });
+    } else {
+        blogPosts.innerHTML = `<p>No posts found matching that title.</p>`
+    }
+}
+
+
+
+function reversePosts() {
+    posts.reverse(); 
+    displayPosts(); 
+}
+
+
+
+function displayPosts() {
+    const blogPosts = document.getElementById('blogPosts');
+    blogPosts.innerHTML = ''; 
+
+    posts.forEach((post, index) => {  // Include the index in the loop
+        const postHtml = `<div class="post">
+            <h4>${post.title}</h4>
+            <p>${post.description}</p>
+            <img src="${post.link}" alt="${post.title}" style="width:100%;max-width:300px;">
+            <p>Category: ${post.category}</p>
+            <p>Author: ${post.author}</p>
+            <button onclick="deletePost(${index})">Delete</button>  <!-- Delete button -->
+        </div>`;
+
+        blogPosts.innerHTML += postHtml;
+    });
+}
+
+
+
+    function displayPosts() {
+        const blogPosts = document.getElementById('blogPosts');
+        blogPosts.innerHTML = '';
+
+        posts.forEach((post, index) => {
+            const postHtml = `<div class="post">
+                <h4>${post.title}</h4>
+                <p>${post.description}</p>
+                <img src="${post.link}" alt="${post.title}" style="width:100%;max-width:300px;">
+                <p>Category: ${post.category}</p>
+                <p>Author: ${post.author}</p>
+                <button onclick="deletePost(${index})">Delete</button>
+            </div>`;
+            blogPosts.innerHTML += postHtml;
+        });
+    }
+
+    function deletePost(index) {
+        posts.splice(index, 1);
+        displayPosts();
+        updateBlogCount();
+    }
+
+
+function filterPosts() {
+    const selectedCategory = document.getElementById('filterCategory').value;
+    const blogPosts = document.getElementById('blogPosts');
+    blogPosts.innerHTML = ''; 
+
+    const filteredPosts = posts.filter(post => selectedCategory === 'all' || post.category === selectedCategory);
+
+    if (filteredPosts.length > 0) {
+        filteredPosts.forEach((post, index) => {
+            const postHtml = `<div class="post">
+                <h4>${post.title}</h4>
+                <p>${post.description}</p>
+                <img src="${post.link}" alt="${post.title}" style="width:100%;max-width:300px;">
+                <p>Category: ${post.category}</p>
+                <p>Author: ${post.author}</p>
+                <button onclick="deletePost(${index})">Delete</button>
+            </div>`;
+            blogPosts.innerHTML += postHtml;
+        });
+    } else {
+        blogPosts.innerHTML = `<p>No posts found in this category.</p>`
+    }
+}
+
+function searchByTitle() {
+    const titleToFind = document.getElementById('searchTitle').value.trim().toLowerCase();
+    const blogPosts = document.getElementById('blogPosts');
+    blogPosts.innerHTML = ''; 
+
+    const filteredPosts = posts.filter(post => post.title.toLowerCase().includes(titleToFind));
+    if (filteredPosts.length > 0) {
+        filteredPosts.forEach((post, index) => {
+            const postHtml = `<div class="post">
+                <h4>${post.title}</h4>
+                <p>${post.description}</p>
+                <img src="${post.link}" alt="${post.title}" style="width:100%;max-width:300px;">
+                <p>Category: ${post.category}</p>
+                <p>Author: ${post.author}</p>
+                <button onclick="deletePost(${index})">Delete</button>
+            </div>`;
+            blogPosts.innerHTML += postHtml;
+        });
+    } else {
+        blogPosts.innerHTML = `<p>No posts found matching that title.</p>`;
+    }
+}
+
+</script>
+</body>
+</html>

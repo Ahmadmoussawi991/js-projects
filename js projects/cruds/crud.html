@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="crud.css">
+</head>
+<body>
+    <div class="crud">
+        <div class="head">
+            <h2>cruds</h2>
+            <p>PRODUCT MANAGEMENT SYSTEM</p>
+        </div>
+        <div id="message"></div>
+        <div class="inputs">
+            <input type="text" id="title" placeholder="title">
+            <div class="price">
+                <input onkeyup="gettotal()" type="number" id="price" placeholder="price"> 
+                <input onkeyup="gettotal()" type="number" id="taxes" placeholder="taxes"> 
+                <input onkeyup="gettotal()" type="number" id="ads" placeholder="ads"> 
+                <input onkeyup="gettotal()" type="number" id="discount" placeholder="discount"> 
+                <small  id="total"></small>
+            </div>
+            <input type="number" id="count" placeholder="count"> 
+            <input type="text" id="category" placeholder="category">
+            <button id="submit">create</button>
+        </div>
+        <div class="outputs">
+            <input onkeyup="searchdata(this.value)"type="text" id="search" placeholder="Search"> 
+          <div class="btnsearch">
+            <button onclick ="getsearchmood(this.id)"id="searchtitle">Search by title</button>
+            <button onclick ="getsearchmood(this.id)" id="searchcategory">Search by category</button>
+          </div>
+        </div>
+        <div id="deleteall"></div>
+        <table>
+            <tr>
+                <th>id</th>
+                <th>title</th>
+                <th>price</th>
+                <th>taxes</th>
+                <th>ads</th>
+                <th>discount</th>
+                <th>total</th>
+                <th>category</th>
+                <th>update</th>
+                <th>delate</th>
+            </tr>
+            <tbody id="tbody">
+              
+            </tbody>
+        </table>
+        <img src="scrooll.png" id="scr">
+    </div>
+</body>
+<script>
+    let title=document.getElementById('title')
+let price=document.getElementById('price')
+let taxes=document.getElementById('taxes')
+let ads=document.getElementById('ads')
+let discount=document.getElementById('discount')
+let total=document.getElementById('total')
+let count=document.getElementById('count')
+let category=document.getElementById('category')
+let submit=document.getElementById('submit')
+let mood='create'
+let tmp;
+let message=document.getElementById('message')
+
+function gettotal()
+{
+if(price.value != ''){
+    let result=(+price.value + +taxes.value + +ads.value) - +discount.value;
+    total.innerHTML=result;
+    total.style.background='#040'
+}
+else{
+total.innerHTML='';
+total.style.background='#a00d02'
+
+}
+}
+
+let datapro
+if(localStorage.product != null){
+    datapro=JSON.parse(localStorage.product)
+}
+else{
+    datapro=[]
+}
+
+submit.onclick=function (){
+    let newpro={
+        title:title.value.toLowerCase(),
+        price:price.value,
+        taxes:taxes.value,
+        ads:ads.value,
+        discount:discount.value,
+        total:total.innerHTML,
+        count:count.value,
+        category:category.value.toLowerCase()
+    }
+    if(title.value!=''&&price.value!=''&&category.value!=''&&newpro.count<100)
+    {  
+        if(mood==='create'){
+           if(newpro.count>1){
+        for(let i=0;i<newpro.count;i++){
+            datapro.push(newpro)
+        }
+        message.innerHTML='!phones has ben added'
+color()
+    }
+    else{
+    datapro.push(newpro)
+    message.innerHTML='!phone has ben added'
+color()
+
+    }
+    cleardata()
+}
+else{
+    datapro[tmp]=newpro
+    submit.innerHTML='create'
+    count.style.display='block';
+    mood='create'
+    message.innerHTML='!phones has ben updated'
+color()
+}}
+else {
+    if(mood==='create'){
+        colorr()
+    }
+    else{
+colorr()
+    }
+}
+  
+
+    localStorage.setItem('product',JSON.stringify(datapro))
+   
+    showdata()
+}
+ function cleardata(){
+title.value=''
+price.value=''
+       taxes.value=''
+      price.ads=''
+        discount.value=''
+        total.innerHTML=''
+       count.value=''
+        category.value=''
+ }
+//read
+function showdata(){
+    gettotal()
+    let table=''
+    for(let i=0 ;i<datapro.length;i++){
+        table +=`
+        <tr>
+            <td>${i+1}</td>
+            <td>${datapro[i].title}</td>
+            <td>${datapro[i].price}</td>
+            <td>${datapro[i].taxes}</td>
+            <td>${datapro[i].ads}</td>
+            <td>${datapro[i].discount}</td>
+            <td>${datapro[i].total}</td>
+            <td>${datapro[i].category}</td>
+            <td><button onclick="updatedata(${i})" id="update">update</button></td>
+            <td><button onclick="deleteproduct(${i})" id="delete">delete</button></td>
+            </tr>
+        `
+    }
+    document.getElementById('tbody').innerHTML=table
+    let btndelete=document.getElementById('deleteall')
+if(datapro.length>0){
+btndelete.innerHTML=`
+<button onclick="deleteAll()">delete all (${datapro.length})</button>
+`;
+}
+else{
+    btndelete.innerHTML='';
+}
+
+}
+showdata()
+//delate
+function deleteproduct(i){
+datapro.splice(i,1);
+localStorage.product=JSON.stringify(datapro)
+showdata()
+message.innerHTML=`${datapro[i].title} has ben deleted`
+color()
+}
+function deleteAll(){
+    localStorage.clear()
+    datapro.splice(0)
+    showdata()
+    message.innerHTML='all phones has ben deleted'
+color()
+}
+//count
+//update
+function updatedata(i){
+title.value=datapro[i].title
+price.value=datapro[i].price
+taxes.value=datapro[i].taxes
+ads.value=datapro[i].ads
+discount.value=datapro[i].discount
+gettotal()
+count.style.display='none'
+category.value=datapro[i].category
+submit.innerHTML='Update'
+mood='update'
+tmp=i
+scroll({
+    top:0,
+    behavior:"smooth"
+})
+message.innerHTML='!Update the information of customer'
+message.style.background='rgb(105, 105, 241)'
+    message.style.display='block'
+}
+//search
+let searchmood='title'
+function getsearchmood(id){
+    let search=document.getElementById('search')
+if(id=='searchtitle'){
+    searchmood='title'
+    search.placeholder='Search By Title'
+}
+else{
+    searchmood='category'
+    search.placeholder='Search By Category'
+}
+search.focus()
+search.value='';
+showdata()
+}
+function searchdata(value){
+    let table=''
+    if(searchmood=='title'){
+        for (let i=0 ; i<datapro.length ;i++){
+            if(datapro[i].title.includes(value.toLowerCase())){
+              table+=` <tr>
+            <td>${i}</td>
+            <td>${datapro[i].title}</td>
+            <td>${datapro[i].price}</td>
+            <td>${datapro[i].taxes}</td>
+            <td>${datapro[i].ads}</td>
+            <td>${datapro[i].discount}</td>
+            <td>${datapro[i].total}</td>
+            <td>${datapro[i].category}</td>
+            <td><button onclick="updatedata(${i})" id="update">update</button></td>
+            <td><button onclick="deleteproduct(${i})" id="delete">delete</button></td>
+            </tr>
+        `
+            }
+        }
+    }
+    else{
+        for (let i=0 ; i<datapro.length ;i++){
+            if(datapro[i].category.includes(value.toLowerCase())){
+              table+=` <tr>
+            <td>${i}</td>
+            <td>${datapro[i].title}</td>
+            <td>${datapro[i].price}</td>
+            <td>${datapro[i].taxes}</td>
+            <td>${datapro[i].ads}</td>
+            <td>${datapro[i].discount}</td>
+            <td>${datapro[i].total}</td>
+            <td>${datapro[i].category}</td>
+            <td><button onclick="updatedata(${i})" id="update">update</button></td>
+            <td><button onclick="deleteproduct(${i})" id="delete">delete</button></td>
+            </tr>
+        `
+            }
+        }
+    }
+    document.getElementById('tbody').innerHTML=table
+
+}
+//clean data
+   
+
+    let scr =document.getElementById('scr')
+scr.onclick=function(){
+    window.scroll({
+        top:0,
+        left:0,
+        behavior:"smooth"
+    })
+}
+    window.onscroll=function(){
+        if(scrollY>250){
+            scr.style.display="block"
+        }
+        else{
+            scr.style.display="none"
+        }
+}
+function color(){
+    message.style.background='rgb(105, 105, 241)'
+    message.style.display='block'
+    setTimeout(function(){message.style.display='none'},3000)
+}
+function colorr(){
+    message.style.display='block'
+    message.style.background='red'
+message.innerHTML='!please enetr all the feilds!'
+setTimeout(function(){message.style.display='none'},3000)
+}
+</script>
+</html>

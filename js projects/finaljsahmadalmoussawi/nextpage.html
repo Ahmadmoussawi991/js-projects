@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="sort">
+    <button id="sortbyrate" onclick="sortbyrate()">Sort by rate</button>
+    <button id="sortbyprice" onclick="sortbyprice()">Sort by price</button>
+</div>
+    <br>
+    <label for="statusFilter">Filter by categories:</label>
+    <select id="statusFilter" onchange="filterproducts()">
+        <option value="all">all</option>
+      <option value="Electronics">Electronics</option>
+      <option value="Fashion">Fashion</option>
+      <option value="bag">bag</option>
+    </select>
+    <table id="table" class="displaynone">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>description</th>
+            <th>price</th>
+            <th>rate</th>
+            <th>category</th>
+          </tr>
+        </thead>
+        <tbody id="bodytable"></tbody>
+      </table>
+      <div id="message"></div>
+      <form >
+        <label for="name"> name</label>
+        <input id="name" type="text" placeholder="Enter product name.."  />
+        <label for="desc"> descreption</label>
+        <input id="desc" type="text" placeholder="Enter desc.."  />
+        <label for="type">category</label><select name="type" id="type" >
+          <option value="Electronics">Electronics</option>
+          <option value="Fashion">Fashion</option>
+          <option value="bag">bag</option>
+        </select>
+        <label for="rate">rate</label>
+        <input type="number" id="rate" placeholder="rate">
+        <label for="price"> price</label>
+        <input type="number" id="price" placeholder="price">
+        <button id="reg">register</button>
+      </form>
+      <div class="fff">
+      <button id="count" onclick="count()">count</button>
+      <div id="counted"></div>
+      <button id="avg" onclick="avg()">average rating of electronics</button>
+      <div id="avgerage"></div>
+      <button id="total" onclick="total()">sum of all products</button>
+      <div id="totalp"></div>
+    </div>
+    <script src="next.js"></script>
+</body>
+</html>

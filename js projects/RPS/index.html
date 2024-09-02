@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+    <div class="title">
+       Rock-Paper-Scissors
+    </div>
+    <div class="flexbox">
+        <img src="Rock.jpg" alt="" onclick="playGame('rock')">
+        <img src="Paper.jpg" alt="" onclick="playGame('paper')">
+        <img src="OIP.jpg" alt="" onclick="playGame('scissor')">
+    </div>
+    <div class="result">
+       <p id="p">Player:</p> 
+        <p id="c">Computer:</p> 
+    </div>  
+    <div id="win">who win?</div>
+<div class="scores">
+    <p id="ps">Player Score:</p> 
+   <p id="cs">Computer Score:</p> 
+</div>
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>

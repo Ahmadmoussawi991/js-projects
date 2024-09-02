@@ -1,0 +1,26 @@
+.container{
+    text-align: center;
+}
+.title{
+    font-size:4.8em;
+}
+img{
+    width: 100px;
+}
+.flexbox{
+    display: flex;
+    justify-content: space-evenly;
+}
+p{
+    font-size: 2em;
+}
+#win{
+    font-size: 3em;
+    font-weight: bold;
+}
+.green{
+    color: green;
+}
+.red{
+    color:red;
+}

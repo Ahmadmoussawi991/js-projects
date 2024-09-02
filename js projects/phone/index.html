@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <div class="container">
+        <header>
+     <a href="#"><img src="logo.png" alt=""></a>
+     <div class="nav">
+        <ul>
+       <li> <a href="#">Home</a></li>
+    <li><a href="#">Product</a></li>
+<li><a href="#">About</a></li>
+<li> <a href="#">Contact</a></li>
+    </ul>
+     </div>
+</header>
+     <div class="content">
+     <div class="inf">
+        <h2>iphone 13 pro max</h2>
+        <p>Welcome to my website iphone 13 pro max for sale
+    if you need more info visit this link </p>
+<a href="#">All projects</a>
+</div>
+<div class="image">
+    <img id="to" src="0.png" >
+</div>
+</div>
+<div class="images">
+    <img onclick="phones(this.src);colors('#c82525')" src="4.png">
+    <img onclick="phones(this.src);colors('#247ec8')" src="1.png" alt="">
+    <img onclick="phones(this.src);colors('#1e1e1e')" src="2.png" alt="">
+    <img onclick="phones(this.src);colors('#c79b53')" src="3.png" alt="">
+    <img onclick="phones(this.src);colors('#000')" src="0.png" alt="">
+   
+</div>
+    </div>
+  
+</body>
+<script>
+let img= document.getElementById('to')
+    let cont=document.querySelector('.container')
+    function phones(phone){
+       img.src=phone;
+    }
+    function colors(color){
+    cont.style.background=color
+    }
+    </script>
+</html>

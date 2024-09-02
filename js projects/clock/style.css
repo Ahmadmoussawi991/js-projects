@@ -1,0 +1,126 @@
+
+body{
+    margin:0;
+    padding:0;
+    font-family: sans-serif;
+    background-color: rgb(40, 40, 110);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+img{
+    width:70px;
+    position: absolute;
+    left:50%;
+    top:60px;
+    transform: translate(-50%);
+    z-index: 2;
+}
+.clock{
+    position: relative;
+    background-color: lightgray;
+width:350px;
+height: 350px;
+border-radius: 50%;
+border:5px darkgray solid;
+box-shadow: 1px 1px 4px rgba(0, 0, 0, .7);
+}
+.number div{
+    position:absolute;
+    font-size: 27px;
+    font-weight: bold;
+    color:lightgoldenrodyellow;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, .7);
+
+}
+.twelv{
+    left:50%;
+    transform: translateX(-50%);
+    top:6px
+}
+.one{
+    left:70%;
+    transform: translateX(-50%);
+    top :30px
+}
+.two{
+    left:85%;
+    transform: translateX(-50%);
+    top :85px
+}
+.three{
+    top:50%;
+    right: 6px;
+    transform: translateY(-50%);
+}
+.four{
+    top:70%;
+    right: 30px;
+    transform: translateY(-50%);
+}
+.five{
+    top:85%;
+    transform: translateX(-50%);
+    right :85px
+}
+.six{
+    bottom:6px;
+    left:50%;
+    transform: translateX(-50%);
+}
+.nine{
+    
+    left:6px;
+    top:50%;
+    transform: translateY(-50%);
+}
+
+.arrows{
+    display: flex;
+    width:100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    
+}
+.arrows::before{
+    content: "";
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color:darkgreen;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, .7);
+    z-index: 4;
+    
+}
+.arrows div{
+    background-color: white;
+    width:7px;
+    position: absolute;
+    height: 120px;
+    transform-origin: bottom center;
+    bottom:50%;
+    z-index: 3;
+    border-radius: 50% 50% 0 0;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, .7);
+   
+}
+.arrows .minute{
+    width: 6px;
+    height: 100px;
+    
+    background-color: rgb(255, 0, 0);
+}
+.arrows .second{
+    width: 5px;
+    height: 120px;
+  
+    background-color: rgb(14, 14, 104);
+}
+.arrows .hour{
+    width: 7px;
+    height: 80px;
+    
+    background-color:rgb(84, 45, 45);
+}

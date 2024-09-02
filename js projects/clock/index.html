@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="clock">
+    <div class="number">
+        <div class="twelv">12</div>
+        <div class="one">1</div>
+        <div class="two">2</div>
+        <div class="three">3</div>
+        <div class="four">4</div>
+        <div class="five">5</div>
+        <div class="six">6</div>
+        <div class="seven">7</div>
+        <div class="eight">8</div>
+        <div class="nine">9</div>
+        <div class="ten">10</div>
+        <div class="eleven">11</div>
+    </div>
+    <div class="arrows">
+        <div class="hour">
+
+        </div>
+        <div class="minute">
+
+        </div>
+        <div class="second">
+
+        </div>
+    </div>
+    <img src="Logo_da_Rolex.png" alt="">
+</div>
+</body>
+<script>
+    let min=document.querySelector('.minute')
+    let hour=document.querySelector('.hour')
+    let sec=document.querySelector('.second')
+    function updateclock(){
+        const currentDate=new Date()/*new Date to get date*/
+        setTimeout(updateclock, 1000)
+        let h=currentDate.getHours()
+        let m=currentDate.getMinutes()
+        let s=currentDate.getSeconds()
+        let hdeg=(h/12)*360;
+        hour.style.transform=`rotate(${hdeg}deg)`
+        let mdeg=(m/60)*360;
+        min.style.transform=`rotate(${mdeg}deg)`
+        let sdeg=(s/60)*360;
+        sec.style.transform=`rotate(${sdeg}deg)`
+    }
+   updateclock()
+</script>
+</html>
